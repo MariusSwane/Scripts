@@ -1,0 +1,8 @@
+#!/bin/bash
+
+chosen=$(shuf -n 1 ~/.cache/MusicList)
+
+notify-send -t 10000 -i /usr/share/icons/gnome/scalable/mimetypes/audio-x-generic-symbolic.svg "$(echo $chosen | 
+	awk -F '/' '{print $6 " - " $7}')"
+
+echo $chosen | awk -F '/' '{print "/"$6}' | xclip -sel clip

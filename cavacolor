@@ -1,0 +1,9 @@
+#!/bin/fish
+
+head -n -2 ~/.config/cava/config > ~/.cache/config_test
+
+awk 'BEGIN{ RS = "" ; FS = "\n" }{print "gradient_color_1 = \'" $2 "\'"
+				print "gradient_color_2 = \'" $5 "\'"
+}' ~/.cache/wal/colors >> ~/.cache/config_test
+
+mv ~/.cache/config_test ~/.config/cava/config

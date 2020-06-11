@@ -1,0 +1,3 @@
+#!/bin/fish
+
+find ~/NAS/Music/ -maxdepth 2 -mindepth 2 -type d > ~/.cache/MusicList

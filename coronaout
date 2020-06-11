@@ -1,0 +1,9 @@
+#!/bin/bash
+
+curl -s https://corona-stats.online/NO |sed  's/\x1b\[[0-9;]*m//g' > ~/.cache/corona
+
+count=$(grep "World \| Norway" ~/.cache/corona |
+	sed "s/\s*//g ; s/║//g ; s/│/;/g ; s/\n//" |
+	awk -F';' '{print $2 " 🤢" $3 "("$4")" "💀 " $5 }')
+
+notify-send -t 50000 "$(echo $count)"

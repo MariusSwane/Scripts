@@ -1,0 +1,8 @@
+#!/bin/fish
+
+wal -i /home/mariuswis/Pictures/wal/*
+xrandr --output DP1-2 --auto --left-of eDP1
+xwallpaper --screen 0 --zoom /home/mariuswis/Pictures/wal/*
+$HOME/.config/polybar/launch.sh
+picom -b --experimental-backends
+# betterlockscreen -u /home/mariuswis/Pictures/wal/*
