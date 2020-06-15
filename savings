@@ -1,0 +1,14 @@
+#!/bin/bash
+
+dnb=$(sed -n '1p' ~/.cache/cash)
+
+klp=$(sed -n '2p' ~/.cache/cash)
+
+ndnb=$(($dnb+1000))
+nklp=$(($klp+500))
+
+ntotal=$(($ndnb+$nklp))
+
+echo $ndnb>~/.cache/cash
+echo $nklp>>~/.cache/cash
+echo $ntotal>>~/.cache/cash

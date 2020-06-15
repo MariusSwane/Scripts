@@ -1,0 +1,23 @@
+#!/bin/bash
+
+dnb=$(sed -n '1p' ~/.cache/cash)
+
+klp=$(sed -n '2p' ~/.cache/cash)
+
+curl -s 'https://www.morningstar.no/no/funds/snapshot/snapshot.aspx?id=F00000JORS&tab=1' | sed 's/<[^>]\+>/ /g' | grep '1 uke' > ~/.cache/weeklystonks
+
+curl -s 'https://www.morningstar.no/no/funds/snapshot/snapshot.aspx?id=F00000MKDH&tab=1' | sed 's/<[^>]\+>/ /g' | grep '1 uke' >> ~/.cache/weeklystonks
+
+ddnb=$(sed -e 's/,/./g' -ne '1p' ~/.cache/weeklystonks | awk -F' ' '{print $5}')
+
+dklp=$(sed -e 's/,/./g' -ne '2p' ~/.cache/weeklystonks | awk -F' ' '{print $5}')
+
+newdnb=$(echo "$dnb+$dnb*($ddnb)/100" | bc)
+
+newklp=$(echo "$klp+$klp*($dklp)/100" | bc)
+
+newtotal=$(($newdnb+$newklp))
+
+echo $newdnb>~/.cache/cash
+echo $newklp>>~/.cache/cash
+echo $newtotal>>~/.cache/cash
