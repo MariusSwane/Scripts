@@ -1,0 +1,27 @@
+#!/bin/bash
+[ -z "$1" ] && echo "Give me a davidrumsey map URL in quotes." && exit
+
+curl -s "$1" > .cache/rum
+
+author=$(sed -n '/>author</{N; p}' .cache/rum | sed 's/<[^>]\+>/ /g' | grep -v "author" | sed 's/^\s\+//' | xargs) 
+
+date=$(sed -n '/>pub_date</{N; p}' .cache/rum | sed 's/<[^>]\+>/ /g' | grep -v "date" | sed 's/^\s\+//')
+
+publisher=$(sed -n '/>publisher</{N; p}' .cache/rum | sed 's/<[^>]\+>/ /g' | grep -v "publisher" | sed 's/^\s\+//' | xargs)
+
+location=$(sed -n '/>publisher_location</{N; p}' .cache/rum | sed 's/<[^>]\+>/ /g' | grep -v "location" | sed 's/^\s\+//')
+
+title=$(sed -n '/>short_title</{N; p}' .cache/rum | sed 's/<[^>]\+>/ /g' | grep -v "title" | sed 's/^\s\+//')
+
+key=$(printf "$author" | sed -n '1p' | awk -v var="$date" -F ',' '{print $1var}')
+
+{
+ printf '%s\n'
+ printf \@misc{$key;printf '%s\n' , 
+ printf "  title = {"$title;printf '%s\n' },
+ echo -n "  author = {""$author";printf '%s\n' },
+ printf "  date = {"$date;printf '%s\n' },
+ echo -n "  publisher = {""$publisher";printf '%s\n' },
+ printf "  address = {"$location;printf '%s\n' },
+ printf "  url = {"$1;printf '%s\n' };printf '%s\n' }
+} | tee -a Documents/map.bib
