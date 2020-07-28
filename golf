@@ -1,0 +1,5 @@
+#!/bin/sh
+
+count=$(curl -s https://www.trumpgolfcount.com/downloadoutings | grep -v "Golf Date" | wc -l)
+
+notify-send -i $HOME/Pictures/trump.png -t 5000 "Days of golf: $count"

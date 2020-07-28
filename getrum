@@ -1,5 +1,5 @@
 #!/bin/bash
-[ -z "$1" ] && echo "Give me a davidrumsey map URL in quotes." && exit
+[ -z "$1" ] && printf "Give me a davidrumsey map URL in quotes." && exit
 
 curl -s "$1" > .cache/rum
 
