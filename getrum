@@ -25,3 +25,13 @@ key=$(printf "$author" | sed -n '1p' | awk -v var="$date" -F ',' '{print $1var}'
  printf "  address = {"$location;printf '%s\n' },
  printf "  url = {"$1;printf '%s\n' };printf '%s\n' }
 } | tee -a Documents/map.bib
+
+read -r -p "Would you like to edit this? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+	nvim Documents/map.bib
+        ;;
+    *)
+        
+        ;;
+esac
