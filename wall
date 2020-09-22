@@ -1,6 +1,6 @@
 #!/bin/fish
 
-wal -i $HOME/Pictures/wal/*
+wal --theme base16-black-metal -a 70
 xrandr --output DP1-2 --auto --left-of eDP1
 xwallpaper --screen 0 --zoom $HOME/Pictures/wal/*
 $HOME/.config/polybar/launch.sh

@@ -24,12 +24,12 @@ key=$(printf "$author" | sed -n '1p' | awk -v var="$date" -F ',' '{print $1var}'
  echo -n "  publisher = {""$publisher";printf '%s\n' },
  printf "  address = {"$location;printf '%s\n' },
  printf "  url = {"$1;printf '%s\n' };printf '%s\n' }
-} | tee -a Documents/map.bib
+} | tee -a Work/map.bib
 
 read -r -p "Would you like to edit this? [y/N] " response
 case "$response" in
     [yY][eE][sS]|[yY]) 
-	$EDITOR Documents/map.bib
+	$EDITOR Work/map.bib
         ;;
     *)
         

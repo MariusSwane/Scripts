@@ -8,5 +8,5 @@ dnb=$(sed -n '1p' ~/.cache/stonks | awk -F' ' '{print $5"%"}' )
 
 klp=$(sed -n '2p' ~/.cache/stonks | awk -F' ' '{print $5"%"}' )
 
-notify-send -i /usr/share/icons/oxygen/base/32x32/actions/office-chart-line-stacked.png -t 10000 "DNB Global Indeks A $dnb
+notify-send -i $HOME/.cache/stonks.png -t 5000 "DNB Global Indeks A $dnb
 KLP Fremvoksende Markeder Indeks II $klp"
