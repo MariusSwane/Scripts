@@ -1,0 +1,5 @@
+#!/bin/sh
+
+w=$(curl -s 'wttr.in?format=4')
+
+notify-send -t 5000 "$w"

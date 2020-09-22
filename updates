@@ -1,0 +1,9 @@
+#!/bin/sh
+
+pamac checkupdates > ~/.cache/updates
+
+
+sed -n '1p' /home/mariuswis/.cache/updates |
+	grep -o '[0-9]' && tr -d '\n' && echo updates available	|| echo 0 Updates available
+
+	# awk -F' ' '{print $1 " updates available"}'

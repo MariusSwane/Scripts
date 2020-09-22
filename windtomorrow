@@ -1,0 +1,4 @@
+#!/bin/sh
+
+curl -s 'wttr.in' | sed 's/\x1B\[[0-9;]*[JKmsu]//g' | grep -o '[0-9]*\skm/h' | sed -n '6,9p'
+

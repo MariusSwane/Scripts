@@ -1,0 +1,5 @@
+#!/bin/sh
+
+curl https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt > .cache/hosts
+
+cat .cache/oghosts >> .cache/hosts

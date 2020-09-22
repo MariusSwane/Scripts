@@ -1,0 +1,8 @@
+#!/bin/sh
+
+date=$(date)
+
+git add -A
+git commit -am "$date"
+
+git push origin master
