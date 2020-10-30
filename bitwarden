@@ -1,0 +1,5 @@
+#!/bin/sh
+
+[ -z "$1" ]
+
+bw get password $1 | xclip -sel clip
