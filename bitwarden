@@ -3,3 +3,5 @@
 [ -z "$1" ]
 
 bw get password $1 | xclip -sel clip
+
+notify-send "Password for $1 copied to clip"
