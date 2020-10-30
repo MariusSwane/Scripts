@@ -32,7 +32,7 @@ grep ^% > .cache/ref
 
 grep '\author =' .cache/bibref | sed 's/^[\t]//;s/[{}]//g;s/,$//;s/author = /\%A /;s/ and /\n\%A /g' >> .cache/ref
 
-echo .cache/ref >> Work/referlib
+cat .cache/ref >> Work/referlib
 
 echo 'I wrote this to the bib:'
 cat .cache/bibref
