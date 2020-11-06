@@ -1,0 +1,7 @@
+#!/bin/fish
+
+wal --theme base16-gruvbox-soft -l 
+xrandr --output DP1-2 --auto --left-of eDP1
+xwallpaper --screen 0 --zoom $HOME/Pictures/wal2/*
+Scripts/startup
+#picom -b --config-path .config/picom.conf2
