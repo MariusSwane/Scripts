@@ -1,7 +1,7 @@
-#!/bin/fish
+#!/bin/zsh
 
 wal --theme base16-black-metal -a 70
-xrandr --output DP1-2 --auto --left-of eDP1
-xwallpaper --screen 0 --zoom $HOME/Pictures/wal/*
+xrandr --auto
+feh --bg-scale $Home/Pictures/wal/*
 $HOME/.config/polybar/launch.sh
 picom -b

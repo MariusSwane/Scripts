@@ -1,0 +1,7 @@
+#!/bin/sh
+# For now, this must be placed in the target folder
+for f in $(find -name “*.HEIC”)
+do
+echo "Working on file $f"
+heif-convert $f $f.jpg
+done
