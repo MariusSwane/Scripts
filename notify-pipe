@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+
+read notification
+notify-send "Copied the following:" "$notification" "$@"
