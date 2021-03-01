@@ -2,6 +2,6 @@
 
 wal --theme base16-black-metal -a 70
 xrandr --auto
-feh --bg-scale $Home/Pictures/wal/*
+feh --bg-scale $HOME/Pictures/wal/*
 $HOME/.config/polybar/launch.sh
 picom -b
