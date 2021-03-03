@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]; then
+from=$"Dragvoll"
+to=$"Strindheim"
+else
+from=$1
+to=$2
+fi
+
+h=$(date +%H)
+m=$(date +%M)
+
+output=$(curl -s "https://rp.atb.no/scripts/TravelMagic/TravelMagicWE.dll/svar?lang=no&from=$from+%28Trondheim%29&to=$to+%28Trondheim%29&Date=02.03.2021&Time=$h%3A$m&direction=1&dep1=1" | grep -A 1 departurelist-time | grep : | head -5)
+
+notify-send -i "$HOME/Pictures/bus.png" -t 100000 "$(echo -e "$from -> $to \n$output")"
