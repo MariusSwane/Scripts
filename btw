@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export BW_SESSION="Tno0HMCJs3s3v2fd9xXLowOYxyApOi0j4WS0vQagH9knW6SZSpVwh1Tv/OTsl2LY33WQi8zr8N/Bkvkz611XLg=="
+
 [ -z "$1" ]
 
 bw get password $1 | xclip -sel clip 
