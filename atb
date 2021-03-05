@@ -8,10 +8,8 @@ from=$1
 to=$2
 fi
 
-d=$(date +%d.%m.%y)
-h=$(date +%H)
-m=$(date +%M)
+dt=$(date "+%d %m %y %H %M" | awk -F ' ' '{print $1"."$2"."$3"&Time="$4"%3A"$5}')
 
-output=$(curl -s "https://rp.atb.no/scripts/TravelMagic/TravelMagicWE.dll/svar?lang=no&from=$from+%28Trondheim%29&to=$to+%28Trondheim%29&Date=$d&Time=$h%3A$m&direction=1&dep1=1" | grep -A 1 departurelist-time | grep : | head -5)
+output=$(curl -s "https://rp.atb.no/scripts/TravelMagic/TravelMagicWE.dll/svar?lang=no&from=$from+%28Trondheim%29&to=$to+%28Trondheim%29&Date=$dt&direction=1&dep1=1" | grep -Em 5 '\s\s[0-9][0-9]:[0-9]')
 
 notify-send -i "$HOME/Pictures/bus.png" -t 100000 "$(echo -e "$from -> $to \n$output")"
