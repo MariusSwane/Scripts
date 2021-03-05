@@ -14,11 +14,11 @@ mute=$(pulseaudio-ctl full-status | awk '{print $2}')
 
 if [[ $volume == 0 || "$mute" == "yes" ]]; then
     # Show the sound muted notification
-    dunstify -a "changeVolume" -i audio-volume-muted -r "$msgId" "Volume muted" 
+    dunstify -a "changeVolume" -i $HOME/Pictures/mute.png -r "$msgId" "Volume muted" 
 else
 
 # Show the volume notification
-    dunstify -a "changeVolume" -i audio-volume-high -r "$msgId" \
+    dunstify -a "changeVolume" -i $HOME/Pictures/up.png -r "$msgId" \
     -h int:value:"$volume" "Volume: ${volume}%"
 fi
 
