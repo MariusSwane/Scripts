@@ -4,6 +4,5 @@ export BW_SESSION="Tno0HMCJs3s3v2fd9xXLowOYxyApOi0j4WS0vQagH9knW6SZSpVwh1Tv/OTsl
 
 [ -z "$1" ]
 
-bw get password $1 | xclip -sel clip 
+bw get password $1 | xclip -sel pri,clip | xclip -o | notify-pipe
 
-bw get password $1 | notify-pipe
