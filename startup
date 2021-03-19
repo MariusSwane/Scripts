@@ -7,6 +7,3 @@ xset r rate 300 50
 
 # Set caps lock to function as escape
 setxkbmap -option caps:escape
-
-# Run i3-auto-layout
-i3-auto-layout

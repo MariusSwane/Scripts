@@ -1,0 +1,47 @@
+#!/bin/zsh
+
+if [ $# -eq 0 ]; then
+team="Arsenal"
+else
+team=$1
+fi
+
+#runtime="200 minute"
+#endtime=$(date -ud "$runtime" +%s)
+ft=""
+sum=0
+
+#while [[ $(date -u +%s) -le $endtime ]]
+while [[ $ft != "FT" ]]
+do
+	
+	output=$(curl -s https://free.scorespro.com/live_free.php | 
+		sed 's/<[^>]*>//g ; /^$/d' |
+		sed 's/^[ \t]*//' |
+		grep -C 3 "$team"
+	)
+	
+	echo -e $output > $HOME/.cache/LiveScores/$team
+	#notify-send -i "$HOME/Pictures/football.png" -t 5000 "$(echo -e $output)"
+	
+	#sed -i '184s/.*/export team="'$team'"/' $HOME/.zshrc
+
+	home=$(grep -E '^[0-9] - [0-9]' $HOME/.cache/LiveScores/$team | awk -F ' ' '{print $1}')
+
+	away=$(grep -E '^[0-9] - [0-9]' $HOME/.cache/LiveScores/$team | awk -F ' ' '{print $3}')
+
+	newsum=$(expr $home + $away)
+
+	if [ $sum -lt $newsum ]
+	then
+		sum=$newsum
+		notify-send -i "$HOME/Pictures/football.png" -t 5000 "$(cat .cache/LiveScores/$team)"
+	fi
+
+	ft=$(grep "FT" $HOME/.cache/LiveScores/$team)
+	#echo $ft
+
+    	sleep 30
+done
+
+

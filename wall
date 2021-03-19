@@ -1,7 +1,8 @@
-#!/bin/zsh
+#!/bin/sh
 
-wal --theme base16-black-metal -a 70
-xrandr --auto
+wal --theme base16-black-metal-mayhem -a 70
+xrandr --output DP1-2 --auto --left-of eDP1
 feh --bg-scale $HOME/Pictures/wal/*
+xbacklight -set 100
 $HOME/.config/polybar/launch.sh
 picom -b
