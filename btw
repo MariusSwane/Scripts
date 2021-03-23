@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export BW_SESSION="Tno0HMCJs3s3v2fd9xXLowOYxyApOi0j4WS0vQagH9knW6SZSpVwh1Tv/OTsl2LY33WQi8zr8N/Bkvkz611XLg=="
+export BW_SESSION="FdY38AHlf9+yDciqwUxWmZ1nuxacTCRRXBF9AhODvfTS3VBmEsu9AFK1iHGRFtwuVhIoQxVFENbfGd2sPBUURQ=="
 
 [ -z "$1" ]
 
