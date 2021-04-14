@@ -9,4 +9,7 @@ xset r rate 300 50
 setxkbmap -option caps:escape
 
 # Run i3-auto-layout and leave it running
-i3-auto-layout &
+#i3-auto-layout &
+
+# Set backlight to full
+xbacklight -set 100

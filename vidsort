@@ -1,0 +1,79 @@
+#! /bin/bash
+
+[ -z "$1" ]
+
+jan=$"01"
+feb=$"02"
+mar=$"03"
+apr=$"04"
+mai=$"05"
+jun=$"06"
+jul=$"07"
+aug=$"08"
+sep=$"09"
+okt=$"10"
+nov=$"11"
+des=$"12"
+
+date=$(ffprobe -show_streams -loglevel quiet $1 | grep creation | grep -Eo '[0-9][0-9][0-9][0-9]-[0-9][0-9]' | head -n 1)
+
+year=$(echo $date | awk -F '-' '{print $1}')
+month=$(echo $date | awk -F '-' '{print $2}')
+
+echo $date
+echo $year
+echo $month
+
+if [ "$month" == "$jan" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/01Januar/
+fi
+
+if [ "$month" == "$feb" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/02Februar/
+fi
+
+if [ "$month" == "$mar" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/03Mars/
+fi
+
+if [ "$month" == "$apr" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/04April/
+fi
+
+if [ "$month" == "$mai" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/05Mai/
+fi
+
+if [ "$month" == "$jun" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/06Juni/
+fi
+
+
+if [ "$month" == "$jul" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/07Juli/
+fi
+
+
+if [ "$month" == "$aug" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/08August/
+fi
+
+
+if [ "$month" == "$sep" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/09September/
+fi
+
+
+if [ "$month" == "$okt" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/10Oktober/
+fi
+
+
+if [ "$month" == "$nov" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/11November/
+fi
+
+
+if [ "$month" == "$des" ]; then
+	 rsync -v $1 /home/mariussw/Synology/Video/$year/12Desember/
+fi

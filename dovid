@@ -3,5 +3,6 @@
 [ -z "$1" ]
 
 for f in $1*
-	do imgsort $f
+	do vidsort $f
 done
+

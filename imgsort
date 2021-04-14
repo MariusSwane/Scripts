@@ -18,55 +18,55 @@ des=$"12"
 month=$(exiv2 $1 | grep timestamp | awk -F ':' '{print $3}')
 
 if [ "$month" == "$jan" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/01Januar/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/01Januar/
 fi
 
 if [ "$month" == "$feb" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/02Februar/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/02Februar/
 fi
 
 if [ "$month" == "$mar" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/03Mars/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/03Mars/
 fi
 
 if [ "$month" == "$apr" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/04April/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/04April/
 fi
 
 if [ "$month" == "$mai" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/05Mai/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/05Mai/
 fi
 
 if [ "$month" == "$jun" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/06Juni/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/06Juni/
 fi
 
 
 if [ "$month" == "$jul" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/07Juli/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/07Juli/
 fi
 
 
 if [ "$month" == "$aug" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/08August/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/08August/
 fi
 
 
 if [ "$month" == "$sep" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/09September/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/09September/
 fi
 
 
 if [ "$month" == "$okt" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/10Oktober/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/10Oktober/
 fi
 
 
 if [ "$month" == "$nov" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/11November/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/11November/
 fi
 
 
 if [ "$month" == "$des" ]; then
-	cp $1 /home/mariuswis/Synology/Bilder/2021/12Desember/
+	cp  -vn $1 /home/mariussw/Synology/Bilder/2021/12Desember/
 fi

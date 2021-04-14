@@ -1,3 +1,3 @@
 #!/bin/sh
 
-rsync -zav --rsh='ssh -p41049' mariuswis@mariuswis.could.seedboxes.cc:/home/user/files/MusicSync/ /volume1/share/Music/
+rsync -zrv --rsh='ssh -p41049' mariuswis@185.149.90.52:/home/user/files/MusicSync/ /volume1/share/Music/

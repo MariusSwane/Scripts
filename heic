@@ -1,7 +1,12 @@
 #!/bin/sh
-# For now, this must be placed in the target folder
-for f in $(find -name “*.HEIC”)
+# Provide a folder containing .Heic or .heif files
+
+[ -z "$1" ] 
+
+for f in $(find "$1" -iregex '.*.\(HEIC\|heif\)' -type f)
 do
 echo "Working on file $f"
 heif-convert $f $f.jpg
 done
+
+notify-send "Done! :)"
