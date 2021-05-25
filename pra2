@@ -1,0 +1,9 @@
+#!/bin/bash
+
+chosen=$(beet random -af '$album')
+
+mpc clear
+mpc searchadd album "$chosen"
+mpc play
+
+bum

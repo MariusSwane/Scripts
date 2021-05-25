@@ -2,8 +2,8 @@
 
 head -n -2 ~/.config/cava/config > ~/.cache/config_test
 
-awk 'BEGIN{ RS = "" ; FS = "\n" }{print "gradient_color_1 = \'" $2 "\'"
-				print "gradient_color_2 = \'" $5 "\'"
+awk 'BEGIN{ RS = "" ; FS = "\n" }{print "gradient_color_1 = \'" $3 "\'"
+				print "gradient_color_2 = \'" $6 "\'"
 }' ~/.cache/wal/colors >> ~/.cache/config_test
 
 command mv ~/.cache/config_test ~/.config/cava/config

@@ -34,7 +34,7 @@ PFILE="$HOME/.config/polybar/colors.ini"
 
 # Get colors
 pywal_get() {
-	wal -i "$bgloc" -q -n
+	wal -i "$bgloc" -q -n --backend haishoku
 }
 
 # Change colors

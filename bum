@@ -1,0 +1,13 @@
+#!/bin/bash
+
+MUSIC_DIR=$HOME/Music/
+COVER=$MUSIC_DIR/$(mpc current -f %artist%/%album%/)cover
+
+#kitty +kitten icat "$COVER"
+
+## Butt-ugly quick fix to prevent multiplying windows ##
+killall sxiv
+
+## Display album art ##
+sxiv -g 600x600 -bq "$COVER"*
+
