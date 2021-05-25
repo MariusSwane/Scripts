@@ -1,6 +1,6 @@
 #!/bin/bash
 
 MUSIC_DIR=$HOME/Music/
-COVER=$MUSIC_DIR/$(mpc current -f %artist%/%album%/)cover.jpg
+COVER=$MUSIC_DIR/$(mpc current -f %albumartist%/%album%/)cover.jpg
 
 notify-send "Now Playing" "$(mpc --format '%title% \n%artist% - %album%' current)" -i "$COVER" -t 5000
