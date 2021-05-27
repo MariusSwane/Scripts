@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]
+then
+        echo "Missing options!"
+        echo "(run mediakeys -h for help)"
+        echo ""
+        exit 0
+fi
+
+while getopts "htfb" OPTION; do
+        case $OPTION in
+
+                t)
+                        mpc toggle
+                        ;;
+
+		f)
+			mpc next
+			;;
+
+		b)	
+			mpc prev
+			;;
+
+                h)
+                        echo "Usage: 
+	-t	Toggle pause/play
+	-f	Skip forward
+	-b	Skip backword
+	-h	help (this output)"
+                        exit 0
+                        ;;
+
+        esac
+done

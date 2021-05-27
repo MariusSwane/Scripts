@@ -1,9 +1,11 @@
 #!/bin/bash
 
-ddnb=$(sed -e 's/,/./g' -ne '1p' ~/.cache/stonks | awk -F' ' '{print $5}')
+curl -s 'https://www.morningstar.no/no/funds/snapshot/snapshot.aspx?id=F00000JORS&tab=1' | sed 's/<[^>]\+>/ /g' | grep '1 dag' > ~/.cache/stonks
 
-dklp=$(sed -e 's/,/./g' -ne '2p' ~/.cache/stonks | awk -F' ' '{print $5}')
+curl -s 'https://www.morningstar.no/no/funds/snapshot/snapshot.aspx?id=F00000MKDH&tab=1' | sed 's/<[^>]\+>/ /g' | grep '1 dag' >> ~/.cache/stonks
 
-total=$(sed -n '3p' ~/.cache/cash)
+dnb=$(sed -n '1p' ~/.cache/stonks | awk -F' ' '{print $5"%"}' )
 
-echo "DNB: $ddnb% KLP: $dklp%"
+klp=$(sed -n '2p' ~/.cache/stonks | awk -F' ' '{print $5"%"}' )
+
+echo "DNB: $dnb KLP: $klp "
