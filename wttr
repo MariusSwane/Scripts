@@ -1,0 +1,48 @@
+#!/bin/bash
+
+loc=$(head -n 1 .cache/wttr)
+all=$(grep -B2 ° .cache/wttr | sed 's/[^[:alnum:]]\+/ /g ; /^ *$/d ; s/ [a-z]* .*//' | awk '{print}' ORS='')
+tempnow=$(echo $all | awk '{print $2 "°C"}')
+tempnoon=$(echo $all | awk '{print $5 "°C"}')
+wnoon=$(echo $all | awk '{print $4}')
+wnow=$(echo $all | awk '{print $1}')
+
+#partly=$(⛅)
+#sunny=$(☀️)
+#cloud=$(☁️🌧️🌧️ snow:🌨️)
+
+curl -s 'wttr.in?1FnqT' > .cache/wttr
+
+
+if [ "$wnow" == "Partly" ]; then
+	wnow=⛅
+fi
+
+if [ "$wnow" == "Sunny" ]; then
+	wnow=☀️
+fi
+
+if [ "$wnow" == "Cloudy" ]; then
+	wnow=☁️
+fi
+
+if [ "$wnow" == "Rain" ]; then
+	wnow=🌧️ 
+fi
+
+if [ "$wnoon" == "Partly" ]; then
+	wnoon=⛅
+fi
+
+if [ "$wnoon" == "Sunny" ]; then
+	wnoon=☀️
+fi
+
+if [ "$wnoon" == "Cloudy" ]; then
+	wnoon=☁️
+fi
+
+if [ "$wnoon" == "Rain" ]; then
+	wnoon=🌧️ 
+fi
+echo "$loc $wnow $tempnow | $wnoon $tempnoon"

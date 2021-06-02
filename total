@@ -8,4 +8,6 @@ dnb=$(sed -n '1p' ~/.cache/stonks | awk -F' ' '{print $5"%"}' )
 
 klp=$(sed -n '2p' ~/.cache/stonks | awk -F' ' '{print $5"%"}' )
 
-echo "DNB: $dnb KLP: $klp "
+nasol=$(curl -s 'https://query1.finance.yahoo.com/v7/finance/download/NAS.OL?' | grep '[0-9]' | awk -F ',' '{print $5}' | awk -F '.' '{print $1 "." substr ($2,0,2) "kr"}')
+
+echo "DNB: $dnb KLP: $klp Norwegian: $nasol "

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+chosen=$(beet list -af $1)
+
+mpc clear
+mpc searchadd album "$chosen"
+mpc play
+
+bum
