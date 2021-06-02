@@ -1,7 +1,7 @@
 #!/bin/bash
 
 loc=$(head -n 1 .cache/wttr)
-all=$(grep -B2 ° .cache/wttr | sed 's/[^[:alnum:]]\+/ /g ; /^ *$/d ; s/ [a-z]* .*//' | awk '{print}' ORS='')
+all=$(grep -B2 ° .cache/wttr | sed 's/([^)]*)//g ; s/[^[:alnum:]]\+/ /g ; /^ *$/d ; s/ [a-z]* .*//' | awk '{print}' ORS='')
 tempnow=$(echo $all | awk '{print $2 "°C"}')
 tempnoon=$(echo $all | awk '{print $5 "°C"}')
 wnoon=$(echo $all | awk '{print $4}')
