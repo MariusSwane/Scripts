@@ -1,8 +1,16 @@
 #!/bin/sh
 
+# Setting date for comment
 date=$(date)
 
+# Ignoring files exeeding githubs 100M limit
+# and printing the currently ignored large files
+find * -size +100M | cat >> .gitignore
+find * -size +100M
+
+# Adding and commiting everything
 git add -A
 git commit -am "$date"
 
+# Pushing to master
 git push origin master
