@@ -1,6 +1,6 @@
 #!/bin/bash
 
-chosen=$(beet list -af $1)
+chosen=$(beet list -af '$album' $1 | head -n1)
 
 mpc clear
 mpc searchadd album "$chosen"

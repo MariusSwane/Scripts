@@ -1,48 +1,49 @@
 #!/bin/bash
 
+curl -s 'wttr.in?2FnqT' > .cache/wttr
+
 loc=$(head -n 1 .cache/wttr)
-all=$(grep -B2 ° .cache/wttr | sed 's/([^)]*)//g ; s/[^[:alnum:]]\+/ /g ; /^ *$/d ; s/ [a-z]* .*//' | awk '{print}' ORS='')
-tempnow=$(echo $all | awk '{print $2 "°C"}')
-tempnoon=$(echo $all | awk '{print $5 "°C"}')
-wnoon=$(echo $all | awk '{print $4}')
-wnow=$(echo $all | awk '{print $1}')
+grep -B1 ° .cache/wttr | sed '/^ *$/d' > .cache/evenwttr
+tempnow=$(grep -m1 -e "[0-9]" .cache/evenwttr | sed 's/[^[:alnum:]]\+/ /g' | awk '{print $1 "°C"}')
+tempnoon=$(awk -F '│' '{print $2}' .cache/evenwttr | tail -n1 | sed 's/[^[:alnum:]]\+/ /g' | awk '{print $1 "°C"}')
+wnoon=$(awk -F '│' '{print $2}' .cache/evenwttr | grep -e "[a-z]" | tail -n1 | sed 's/[^[:alnum:]]\+/ /g' | awk '{print $1}')
+wnow=$(head -n1 .cache/evenwttr | sed 's/[^[:alnum:]]\+/ /g ; s/^ //')
 
 #partly=$(⛅)
 #sunny=$(☀️)
 #cloud=$(☁️🌧️🌧️ snow:🌨️)
 
-curl -s 'wttr.in?1FnqT' > .cache/wttr
 
+#if [ "$wnow" == "Partly cloudy" ]; then
+#	wnow=⛅
+#fi
+#
+#if [ "$wnow" == "Sunny" ]; then
+#	wnow=☀️
+#fi
+#
+#if [ "$wnow" == "Cloudy" ] || [ "$wnow" == "Fog" ] || [ "$wnow" == "Overcast" ]; then
+#	wnow=☁️
+#fi
+#
+#if [ "$wnow" == "Rain" ] || [ "$wnow" == "Light drizzle" ] || [ "$wnow" == "Moderate rain" ] || [ "$wnow" == "Light rain" ]; then
+#	wnow=🌧️ 
+#fi
+#
+#if [ "$wnoon" == "Partly cloudy" ]; then
+#	wnoon=⛅
+#fi
+#
+#if [ "$wnoon" == "Sunny" ]; then
+#	wnoon=☀️
+#fi
+#
+#if [ "$wnoon" == "Cloudy" ] || [ "$wnoon" == "Fog" ] || [ "$wnoon" == "Overcast" ]; then
+#	wnoon=☁️
+#fi
+#
+#if [ "$wnoon" == "Rain" ] || [ "$wnoon" == "Light drizzle" ] || [ "$wnoon" == "Moderate rain" ] || [ "$wnoon" == "Light rain" ]; then
+#	wnoon=🌧️ 
+#fi
 
-if [ "$wnow" == "Partly" ]; then
-	wnow=⛅
-fi
-
-if [ "$wnow" == "Sunny" ]; then
-	wnow=☀️
-fi
-
-if [ "$wnow" == "Cloudy" ]; then
-	wnow=☁️
-fi
-
-if [ "$wnow" == "Rain" ]; then
-	wnow=🌧️ 
-fi
-
-if [ "$wnoon" == "Partly" ]; then
-	wnoon=⛅
-fi
-
-if [ "$wnoon" == "Sunny" ]; then
-	wnoon=☀️
-fi
-
-if [ "$wnoon" == "Cloudy" ]; then
-	wnoon=☁️
-fi
-
-if [ "$wnoon" == "Rain" ]; then
-	wnoon=🌧️ 
-fi
-echo "$loc $wnow $tempnow | $wnoon $tempnoon"
+echo "$loc | $wnow $tempnow | $wnoon $tempnoon"

@@ -1,0 +1,10 @@
+#!/bin/bash
+while read -r srcfile; do
+    targetdir="${srcfile%/*}"
+    targetdir="opus/${targetdir#./}"
+    filename="${srcfile##*/}"
+    [[ -d "${targetdir}" ]] || mkdir -p "${targetdir}"
+    opusenc --bitrate 128 "${srcfile}" "${targetdir}/${filename%.flac}.opus"
+done < <(find . -name "*.flac")     
+exit 0
+
