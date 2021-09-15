@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Library quary script
+# Goal is to grep for papers in a bib file,
+# and parse out the bib-syntax. 
+# Hope to add option for context. Either parsing directly to grep contex or
+# something more advanced.
+# Options for which fields to query
+# Output ordered by bib-entry 
+
+# Change to bib to copy the url field to clip board and/or the @key
+
+# OR, I could fill out the library, and have it open the pdf
+
+# Get user selection via dmenu from emoji file.
+cat work/referlib | grep -v %V | grep -v %K | grep -v %P | grep -v %N | grep -v %I |
+	awk -v RS= '$1=$1' | rofi -dmenu -i 30
+
