@@ -12,5 +12,8 @@ find * -size +100M
 git add -A
 git commit -am "$date"
 
-# Pushing to master
-git push origin master
+# Finding branch
+branch=$(git branch --show-current)
+
+# Pushing to current branch
+git push origin $branch

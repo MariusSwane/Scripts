@@ -1,0 +1,8 @@
+#!/bin/bash
+
+BAT=$(cat /sys/class/power_supply/BAT0/capacity)
+
+if [[ $BAT -lt 21
+	]] ; then notify-send -h string:bgcolor:#ff000080 "Low battery!" "$BAT% remaining" 
+fi
+
