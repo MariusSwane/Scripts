@@ -1,8 +1,14 @@
 #!/bin/bash
 
 BAT=$(cat /sys/class/power_supply/BAT0/capacity)
+CHARGING=$(cat /sys/class/power_supply/BAT0/status)
 
-if [[ $BAT -lt 21
-	]] ; then notify-send -h string:bgcolor:#ff000080 "Low battery!" "$BAT% remaining" 
+if [[ $CHARGING == "Discharging" ]]
+then
+	if [[ $BAT -lt 21 ]] 
+	then 
+		notify-send -h string:bgcolor:#ff000080 "Low battery!" "$BAT% remaining"
+	fi
 fi
 
+# TODO: Add audio notification (Metallica - Battery?)
