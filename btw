@@ -1,8 +1,0 @@
-#!/bin/sh
-
-export BW_SESSION="FdY38AHlf9+yDciqwUxWmZ1nuxacTCRRXBF9AhODvfTS3VBmEsu9AFK1iHGRFtwuVhIoQxVFENbfGd2sPBUURQ=="
-
-[ -z "$1" ]
-
-bw get password $1 | xclip -f -sel pri | xclip -f -sel clip | notify-pipe
-
