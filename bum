@@ -6,8 +6,8 @@ COVER=$MUSIC_DIR/$(mpc current -f %albumartist%/%album%/)cover
 #kitty +kitten icat "$COVER"
 
 ## Butt-ugly quick fix to prevent multiplying windows ##
-killall sxiv
+killall nsxiv
 
 ## Display album art ##
-sxiv -g 600x600 -bq "$COVER"*
+nsxiv -g 600x600 -bq "$COVER"*
 

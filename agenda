@@ -1,5 +1,5 @@
 #!/bin/bash
 
-agenda=$(calcurse -a | sed -e '1d')
+agenda=$(calcurse -r5 | sed -e '1d')
 
 notify-send -i $HOME/.local/share/icons/cal.png "$agenda" -t 5000

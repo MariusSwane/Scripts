@@ -1,0 +1,12 @@
+#! /bin/zsh
+
+content=$(cat)
+if [ $2 -eq 0 ]; then
+	title=$(printf $content | grep "^Title:" | awk -F ': ' '{print $2}')
+else
+	title=$2
+fi
+
+echo $content | neomutt $1 -s $title
+
+#echo "$title $content"

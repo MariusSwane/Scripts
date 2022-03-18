@@ -1,0 +1,20 @@
+#! /bin/sh
+
+curl "https://www.davidrumsey.com/luna/servlet/view/all/where/Africa/when/1751?sort=Pub_List_No_InitialSort" |
+	grep 'RUMSEY~8~1~' | 
+	awk -F '~' '{print $4 "~" $5}' | 
+	grep -o "[0-9]*~[0-9]*"|
+	uniq -d |
+	sort -u
+
+if curl "https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~3029~410028" | 
+	grep -o "[A-Z0-9]*/[A-Z0-9]*\.sid" | sort -u then
+	#download sid
+	wget "https://rumseysid.lunaimaging.com/mrsid/mrsid_images/Rumsey/SIDS/D0041/2603028.jp2?image=/D0041/2603028.sid"
+else 
+	# get the nubers for jp2
+	curl "https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~3029~410028" |
+		grep -o "[A-Z0-9]*/[A-Z0-9]*\.jp2" | sort -u
+	#download jp2
+	wget "https://www.davidrumsey.com/static/jp2k/179/13102025.jp2"
+fi
