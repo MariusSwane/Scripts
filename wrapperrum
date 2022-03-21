@@ -1,0 +1,8 @@
+#! /bin/sh
+
+[ -z "$1" ] && printf "Give me a range of years (first last) and a continent to work with\n 
+Syntax: wrapperrum first last continent" && exit
+
+for i in $(seq $1 $2); 
+	do downrum $i $3;
+done

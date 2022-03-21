@@ -15,11 +15,13 @@ curl -s "$link" |
 while IFS= read -r id;
 do
 	# Creating vars and writing to bibfile 
-	curl -s "https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~$id" $XGD_CACHE_HOME/rum
+	curl -s "https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~$id" > $XDG_CACHE_HOME/rum
 	
-	author=$(sed -n '/>author</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "author" | sed 's/^\s\+//' | sed 's/\s*$//' | sed "s/&#039;/'/g" | xargs -0) 
+	author=$(sed -n '/>author</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "author" | sed 's/^\s\+//' | sed 's/\s*$//' | sed "s/&#039;/\'/g" | xargs -0) 
 	
-	date=$(sed -n '/>pub_date</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "date" | sed 's/\s\+//g')
+	date=$(sed -n '/>date</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "date" | sed 's/\s\+//g')
+	
+	pdate=$(sed -n '/>pub_date</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "date" | sed 's/\s\+//g')
 	
 	publisher=$(sed -n '/>publisher</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "publisher" | sed 's/^\s\+//' | sed 's/\s*$//' | sed "s/amp;/\&/g" | sed "s/&#039;/\'/g" | xargs -0)
 	
@@ -34,25 +36,14 @@ while grep -qo "{$key," $HOME/work/Legacies/map.bib ; do
 done
 	
 	 printf "@misc{$key, 
-	 date = $date,
+	 date = $pdate,
 	 title = {$title},
 	 author = {$author},
-	 date = {$date},
+	 note = {$date},
 	 publisher = {$publisher},
 	 address = {$location},
 	 url = {https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~$id}
  	}\n\n" | tee -a $HOME/work/Legacies/map.bib
-	
-	#read -r -p "Would you like to edit this? [y/N] " response
-	#case "$response" in
-	#    [yY][eE][sS]|[yY]) 
-	#	$EDITOR work/Legacies/map.bib
-	#        ;;
-	#    *)
-	#        
-	#        ;;
-	#esac
-	#$sid
 	
 	if cat $XDG_CACHE_HOME/rum | grep -qo "[A-Z0-9]*/[A-Z0-9]*\.sid" ; then
 		#download sid
