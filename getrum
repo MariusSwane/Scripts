@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 [ -z "$1" ] && printf "Give me a davidrumsey map URL in quotes." && exit
 
 curl -s "$1" > .cache/rum
 
 author=$(sed -n '/>author</{N; p}' .cache/rum | sed 's/<[^>]\+>/ /g' | grep -v "author" | sed 's/^\s\+//' | xargs) 
 
-date=$(sed -n '/>pub_date</{N; p}' .cache/rum | sed 's/<[^>]\+>/ /g' | grep -v "date" | sed 's/^\s\+//')
+date=$(sed -n '/>pub_date</{N; p}' .cache/rum | sed 's/<[^>]\+>/ /g' | grep -v "date" | sed 's/\s\+//g')
 
 publisher=$(sed -n '/>publisher</{N; p}' .cache/rum | sed 's/<[^>]\+>/ /g' | grep -v "publisher" | sed 's/^\s\+//' | sed 's/amp;//g' | xargs)
 
@@ -24,12 +24,12 @@ key=$(printf "$author" | sed -n '1p' | awk -v var="$date" -F ',' '{print $1var}'
  echo -n "  publisher = {""$publisher";printf '%s\n' },
  printf "  address = {"$location;printf '%s\n' },
  printf "  url = {"$1;printf '%s\n' };printf '%s\n' }
-} | tee -a Work/map.bib
+} | tee -a work/Legacies/map.bib
 
 read -r -p "Would you like to edit this? [y/N] " response
 case "$response" in
     [yY][eE][sS]|[yY]) 
-	$EDITOR Work/map.bib
+	$EDITOR work/Legacies/map.bib
         ;;
     *)
         
