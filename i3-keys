@@ -1,0 +1,9 @@
+#! /bin/sh
+
+grep "bindsym \$mod" $XDG_CONFIG_HOME/i3/config | 
+grep -v "^\s" |
+awk -F '+' '{print "🐧+ " $2" + "$3}' | 
+sed 's/--no-startup-id//' | 
+sed 's/exec /->/' |
+sed 's/+ $//' |
+rofi -dmenu -i -l 30

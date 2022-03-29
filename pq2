@@ -2,6 +2,8 @@
 
 chosen=$(beet list -af '$album' $1 | head -n1)
 
+echo $chosen
+
 mpc clear
 mpc searchadd album "$chosen"
 mpc play

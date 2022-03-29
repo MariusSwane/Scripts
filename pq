@@ -1,5 +1,9 @@
 #!/bin/bash
 
-chosen=$(beet list -ap $1)
+chosen=$(beet list -a | rofi -dmenu -i -l 30 | awk -F ' - ' '{print $2}' )
 
-mpv --gapless-audio --term-osd-bar -no-resume-playback "$chosen"
+mpc clear
+mpc searchadd album "$chosen"
+mpc play
+
+bum

@@ -6,8 +6,14 @@ COVER=$MUSIC_DIR/$(mpc current -f %albumartist%/%album%/)cover
 #kitty +kitten icat "$COVER"
 
 ## Butt-ugly quick fix to prevent multiplying windows ##
-killall nsxiv
+#killall nsxiv
 
-## Display album art ##
-nsxiv -g 600x600 -bq "$COVER"*
+if xwininfo -name nsxiv ; then
+	WID=$(xwininfo -name nsxiv | grep xwininfo | cut -d ' ' -f 4)
+
+	## Display album art ##
+	nsxiv -g 600x600 -bqe $WID "$COVER"*
+else
+	nsxiv -g 600x600 -bq "$COVER"*
+fi
 
