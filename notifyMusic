@@ -7,4 +7,6 @@ ext=$(ls "$path" | grep -x ^cover.*)
 
 COVER=$path$ext
 
-notify-send "$(mpc --format '%artist% \n- \n%title%' current)" -i "$COVER" -t 5000
+convert "$COVER" -resize 125x "/tmp/cover.$ext"
+
+notify-send "$(mpc --format '%artist% \n- \n%title%' current)" -i "/tmp/cover.$ext" -t 5000

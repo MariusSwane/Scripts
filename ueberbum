@@ -1,0 +1,6 @@
+#!/bin/bash
+{
+    declare -Ap add_command=([action]="add" [identifier]="example0" [x]="-2"
+    [y]="-2" [height]="50" [width]="50" [scaler]="distort" [path]="$1")
+    read
+} | ueberzug layer --parser bash
