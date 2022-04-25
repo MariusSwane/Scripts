@@ -1,0 +1,15 @@
+#! /bin/sh
+
+chosen=$(cat $XDG_CACHE_HOME/tasks | rofi -dmenu -i -l 30)
+
+new=$(
+
+if [ $# -eq 0 ]; then
+	sed "s/$chosen//"
+if [ $1 == "add" ]; then
+	$2 >> $XDG_CACHE_HOME/tasks
+else
+	exit
+fi
+
+

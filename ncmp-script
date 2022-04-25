@@ -1,8 +1,0 @@
-#!/bin/bash
-
-kunst --silent --size 600x600 &
-echo $! >/tmp/music.pid
-
-ncmpcpp
-
-kill -9 "$(cat /tmp/kunst.pid)" &> /dev/null

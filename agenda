@@ -1,5 +1,5 @@
 #!/bin/bash
 
-agenda=$(calcurse -r5 | sed -e '1d')
+agenda=$(khal list today 7 days)
 
-notify-send -i $HOME/.local/share/icons/cal.png "$agenda" -t 5000
+notify-send -i $HOME/.local/share/icons/cal.png "$agenda" -t 10000

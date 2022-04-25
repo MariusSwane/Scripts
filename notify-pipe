@@ -1,4 +1,4 @@
 #!/usr/bin/sh
 
 read notification
-notify-send -t 1000 "Copied the following:" "$notification" "$@"
+notify-send -t 1000 "$notification" "$@"
