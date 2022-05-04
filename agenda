@@ -1,5 +1,7 @@
 #!/bin/bash
 
+vdirsyncer sync
+
 agenda=$(khal list today 7 days)
 
 notify-send -i $HOME/.local/share/icons/cal.png "$agenda" -t 10000

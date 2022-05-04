@@ -1,0 +1,29 @@
+#!/bin/sh
+sleep 0.2 
+# clear clipboard to prevent pasting the previous contents
+xclip -i /dev/null 
+# Select and copy
+xdotool key ctrl+a 
+xdotool key ctrl+c 
+# get ID of active window
+windowid=$(xdotool getactivewindow) 
+# write clipboard to temporary file
+xclip -o > /tmp/my-email-$windowid.eml 
+# Swallow the original window and open vim
+devour kitty nvim /tmp/my-email-$windowid.eml 
+# copy file to clipboard
+cat /tmp/my-email-$windowid.eml | xclip -i -selection c 
+# remove temporary file
+rm /tmp/my-email-$windowid.eml 
+# only if the window can get focus
+if xdotool windowfocus "{$windowid}" 2>/dev/null; then 
+    xdotool key ctrl+a # select all
+    xdotool key ctrl+shift+v # insert clipboard into window
+    xdotool key Prior # scroll up
+    xdotool key Prior # scroll up
+    xdotool key Prior # scroll up
+    xdotool key Prior # scroll up
+    xdotool key Prior # scroll up
+fi
+# clear clipboard when done
+xclip -i /dev/null 
