@@ -59,3 +59,4 @@ done
 	fi
 	
 done < "$XDG_CACHE_HOME/rumlist"
+

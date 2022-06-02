@@ -7,4 +7,4 @@ chosen=$(grep -E "(@)|(year)|(author)|(title)" $HOME/work/lib.bib | tr -d '\t' |
 [ -z "$chosen" ] && exit
 
 # Copy the bib-key to clipboard
-echo "$chosen" | xclip -selection clipboard
+printf "$chosen" | xclip -selection clipboard

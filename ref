@@ -1,0 +1,69 @@
+#!/bin/sh
+
+# TODO: Add option -d to download from sci-hub
+
+[ -z "$1" ] && echo "Give either a pdf file or a DOI as an argument." && exit
+
+if [ -f "$1" ]; then
+	# Try to get DOI from pdfinfo or pdftotext output.
+#	doi=$(pdfinfo "$1" | grep -io "10\..*") ||
+	doi=$(pdftotext "$1" 2>/dev/null - | grep -io "10\..*" -m 1) ||
+	exit 1
+else
+	doi="$1"
+fi
+
+location="$HOME/work/lib.bib"
+
+if [ $# -eq 2 ]; then
+location="$2"
+fi
+
+# Check crossref.org for the bib citation.
+curl -s "http://api.crossref.org/works/$doi/transform/application/x-bibtex" -w "\\n" > $HOME/.cache/bibref
+
+cat $HOME/.cache/bibref >> "$location"
+
+# Reformatting to refer
+#sed 's/[{}]//g' $HOME/.cache/bibref | 
+#sed 's/,$//'|
+#sed 's/^[\t]//'|
+#sed 's/^year =/\%D/'|
+#sed 's/^publisher =/\%I/'|
+#sed 's/^volume =/\%V/'|
+#sed 's/^number =/\%N/'|
+#sed 's/^pages =/\%P/'|
+#sed 's/^title =/\%T/'|
+#sed 's/^journal =/\%J/'|
+#sed 's/^editor =/\%E/'|
+#sed 's/^adress =/\%C/'|
+#grep ^% > $HOME/.cache/ref
+#
+#grep '\author =' $HOME/.cache/bibref | sed 's/^[\t]//;s/[{}]//g;s/,$//;s/author = /\%A /;s/ and /\n\%A /g' >> $HOME/.cache/ref
+#
+#cat $HOME/.cache/ref >> $HOME/work/referlib
+#echo >> $HOME/work/referlib
+
+echo 'I wrote this to the bib:'
+cat $HOME/.cache/bibref
+read -r -p "Would you like to edit this? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+	$EDITOR "$location"
+        ;;
+    *)
+        
+        ;;
+esac
+
+#echo 'I wrote this to refer:' 
+#cat $HOME/.cache/ref
+#read -r -p "Would you like to edit this? [y/N] " response
+#case "$response" in
+#    [yY][eE][sS]|[yY]) 
+#	$EDITOR $HOME/work/referlib
+#        ;;
+#    *)
+#        
+#        ;;
+#esac

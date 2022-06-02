@@ -16,9 +16,13 @@ cat /tmp/my-email-$windowid.eml | xclip -i -selection c
 # remove temporary file
 rm /tmp/my-email-$windowid.eml 
 # only if the window can get focus
-if xdotool windowfocus "{$windowid}" 2>/dev/null; then 
+#if xdotool windowfocus "{$windowid}" 2>/dev/null; then 
+if wmctrl -i -a $windowid; then 
     xdotool key ctrl+a # select all
     xdotool key ctrl+shift+v # insert clipboard into window
+    xdotool key Prior # scroll up
+    xdotool key Prior # scroll up
+    xdotool key Prior # scroll up
     xdotool key Prior # scroll up
     xdotool key Prior # scroll up
     xdotool key Prior # scroll up
