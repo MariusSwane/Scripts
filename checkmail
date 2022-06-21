@@ -1,3 +1,9 @@
 #!/bin/sh
 
-mbsync -a
+ntnu=$(cat .thunderbird/kq1hnr5n.default-release/ImapMail/outlook.office365.com/INBOX-1 |
+	grep -c "X-Mozilla-Status: 0001")
+
+private=$(cat .thunderbird/kq1hnr5n.default-release/ImapMail/imap.swane-2.no/INBOX | 
+	grep -c "X-Mozilla-Status: 0001")
+
+printf "work: $ntnu private: $private"
