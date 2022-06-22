@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# TODO: Add option -d to download from sci-hub
-
 [ -z "$1" ] && echo "Give either a pdf file or a DOI as an argument." && exit
 
 if [ -f "$1" ]; then
@@ -44,11 +42,7 @@ rsync -a "$location" $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Apps/Overleaf/Co
 read -r -p "Download? [y/N] " response
 case "$response" in
     [yY][eE][sS]|[yY]) 
-ck=$(head -n1 $HOME/.cache/bibref | awk -F '{' '{print $2}' | sed s'/,//')
-
-sci=$(curl "https:/sci-hub.se/$doi" | grep -m1 pdf | awk -F "'" '{print $2}')
-
-curl "https:$sci" > "$HOME/work/Library/$ck.pdf"
+	    scihub $doi
         ;;
     *)
         

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Look up doi/link at sci-hub
+sci=$(curl "https:/sci-hub.se/$1" | grep -m1 pdf | awk -F "'" '{print $2}')
+
+# Create a sensable file name
+ck=$(printf $sci | awk -F '?' '{print $1}' | awk -F '/' '{print $6}')
+
+# Download
+curl "https:$sci" > "$HOME/work/Library/$ck"
