@@ -1,10 +1,26 @@
 #!/bin/sh
 
 # Look up doi/link at sci-hub
-sci=$(curl "https:/sci-hub.se/$1" | grep -m1 pdf | awk -F "'" '{print $2}')
+sci=$(curl "https://sci-hub.se/$1" | grep -m1 pdf | awk -F "'" '{print $2}')
 
 # Create a sensable file name
-ck=$(printf $sci | awk -F '?' '{print $1}' | awk -F '/' '{print $6}')
+ck=$(printf $sci | awk -F '?' '{print $1}' | grep -o "[a-zA-Z0-9]*\.pdf")
 
 # Download
-curl "https:$sci" > "$HOME/work/Library/$ck"
+if printf $sci | grep sci-hub ; then
+	curl "https:/$sci" > "$HOME/work/Library/$ck"
+else
+	curl "https:/sci-hub.se$sci" > "$HOME/work/Library/$ck"
+fi
+
+# Is the filename ok?
+read -r -p "Is this: $ck, a good filename? [y/n]" response
+case "$response" in
+	[yY])
+		;;
+	*)
+		printf "Input new filename!"
+		read new
+		mv "$HOME/work/Library/$ck"  "$HOME/work/Library/$new"
+		;;
+esac

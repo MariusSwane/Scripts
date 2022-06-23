@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Get user selection via dmenu from bib file.
+chosen=$(grep -E "(@)|(year)|(author)|(title)" $HOME/work/lib.bib | tr -d '\t' | tr '\n' ' ' | sed 's/@/\n@/g' | rofi -dmenu -i -l 30 | awk -F ',' '{print $1}' | awk -F '{' '{print $2}')
+
+# Exit if none chosen.
+[ -z "$chosen" ] && exit
+
+# Copy the bib-key to clipboard
+printf "$chosen" | xclip -selection clipboard
