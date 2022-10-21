@@ -11,14 +11,14 @@ for i in $(seq $1 $2);
 done
 
 # Untested below, might overreport success
-if [ $? -eq 0 ]
-then
-	curl \
-		-H "Tags: heavy_check_mark" \
-		-d "Download done!" ntfy.sh/projectlegacyntfy
-else
-	curl \
-		-H "Tags: skull" \
-		-d "Something went wrong!" ntfy.sh/projectlegacyntfy
-fi
-
+#if [ $? -eq 0 ]
+#then
+#	curl \
+#		-H "Tags: heavy_check_mark" \
+#		-d "Download done!" ntfy.sh/projectlegacyntfy
+#else
+#	curl \
+#		-H "Tags: skull" \
+#		-d "Something went wrong!" ntfy.sh/projectlegacyntfy
+#fi
+#

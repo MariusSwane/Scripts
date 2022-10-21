@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MUSIC_DIR=$HOME/Music/
+MUSIC_DIR=$HOME/Synology/Music/
 path=$MUSIC_DIR$(mpc current -f %albumartist%/%album%/)
 
 ext=$(ls "$path" | grep -x ^cover.*)

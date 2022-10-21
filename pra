@@ -1,6 +1,6 @@
 #!/bin/bash
 
-chosen=$(mpc list | shuf -n 1)
+chosen=$(mpc list album | shuf -n 1)
 
 mpc clear
 mpc searchadd album "$chosen"

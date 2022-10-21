@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#all=$(grep "keywords" -B10 work/lib.bib)
+
+#keywords=$(printf $all | grep keywords)
+
+grep "keywords = {.*$1.*}" -i -B10 work/lib.bib
+
+# Use fzf in $all instead
+

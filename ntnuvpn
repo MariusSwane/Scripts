@@ -1,0 +1,5 @@
+#!/bin/bash
+
+pass ntnu.no | doas openconnect -u mariussw --passwd-on-stdin vpn.ntnu.no
+
+#TODO: add option to disconnect
