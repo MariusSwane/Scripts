@@ -1,0 +1,9 @@
+#!/bin/bash
+
+umount -l Synology
+umount -l sys
+umount -l Buffalo
+
+loginctl poweroff
+
+

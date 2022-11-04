@@ -1,0 +1,3 @@
+#! /bin/bash
+
+xdotool type $(gpg -d bms.gpg | grep -v '^#' | rofi -dmenu -i -l 30 | cut -d' ' -f1)
