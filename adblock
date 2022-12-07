@@ -2,6 +2,6 @@
 
 curl https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt > .cache/hosts
 
-cat Documents/hosts-backup >> .cache/hosts
+#cat Documents/hosts-backup >> .cache/hosts
 
 cat .cache/hosts >> /etc/hosts

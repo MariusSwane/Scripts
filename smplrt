@@ -1,0 +1,23 @@
+#!/bin/bash
+
+sr=$(cat /proc/asound/card2/pcm0p/sub0/hw_params | grep rate: | cut -d ' ' -f2)
+
+case $sr in
+	44100)
+		pw-metadata -n settings 0 clock.force-rate 48000
+		notify-send -h string:bgcolor:#0000FF "Sample rate set to 48kHz"
+		;;
+	48000)
+		pw-metadata -n settings 0 clock.force-rate 88200
+		notify-send -h string:bgcolor:#FFFF00 -h string:fgcolor:#000000 "Sample rate set to 88.2kHz"
+		;;
+	88200)
+		pw-metadata -n settings 0 clock.force-rate 96000
+		notify-send -h string:bgcolor:#ADD8E6 -h string:fgcolor:#000000 "Sample rate set to 96kHz"
+		;;
+	96000)
+		pw-metadata -n settings 0 clock.force-rate 44100
+		notify-send -h string:bgcolor:#008000 "Sample rate set to 44.1kHz"
+		;;
+esac
+

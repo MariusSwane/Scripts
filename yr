@@ -1,0 +1,22 @@
+#!/bin/bash
+
+chosen=$(cat .local/share/locations | cut -d ' ' -f 1 |
+	rofi -dmenu -i -p "Select location, or search for international location")
+
+echo $chosen
+
+if grep $chosen .local/share/locations ; then
+	chosen=$(grep $chosen .local/share/locations | 
+		cut -d ' ' -f 2)
+else
+	chosen=$(curl "http://api.geonames.org/search?q=$chosen&fuzzy=0.8&maxRows=1&username=mariusswane" |
+		grep geonameId | 
+		sed 's/[^[:alnum:]]\+/ /g' |
+		awk -F ' ' '{print "2-"$2}')
+fi
+
+curl "https://www.yr.no/nb/innhold/$chosen/meteogram.svg" > .cache/yr.svg
+
+convert .cache/yr.svg .cache/yr.png
+
+nsxiv .cache/yr.png

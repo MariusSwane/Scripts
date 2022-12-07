@@ -1,0 +1,13 @@
+#!/bin/bash
+
+MUSIC_DIR=$HOME/Synology/Music
+cover=$MUSIC_DIR/$(mpc current -f %albumartist%/%album%/)cover.jpg
+current=$(mpc current -f "%albumartist%/%album%" |
+	sed 's/ /\+/g')
+
+link=$(curl -s "https://www.last.fm/music/$current" |
+	grep -o -m1 -e 'content=".*\.jpg"' | 
+	cut -d '"' -f 2)
+
+curl $link > "$cover"
+

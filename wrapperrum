@@ -1,24 +1,19 @@
-#! /bin/sh
+#! /bin/bash
 
-# Both scripts are tested in zsh, but should at least be compatible with bash
-# and POSIX compliant
+echo "Please input a range of years separeated by a space, 
+followed by a region/location:"
 
-[ -z "$1" ] && printf "Give me a range of years (first last) and a continent to work with\n 
-Syntax: wrapperrum first last continent" && exit
+read fyear tyear location
 
-for i in $(seq $1 $2); 
-	do downrum $i $3;
+# Formatting location	
+location=$(echo $location | sed -e 's/^./\U&/g; s/ ./\U&/g' | sed 's/ /\+/g')
+
+# Loop over the supplied years for the given region
+for i in $(seq $fyear $tyear); 
+	do downrum $i $location;
 done
 
-# Untested below, might overreport success
-#if [ $? -eq 0 ]
-#then
-#	curl \
-#		-H "Tags: heavy_check_mark" \
-#		-d "Download done!" ntfy.sh/projectlegacyntfy
-#else
-#	curl \
-#		-H "Tags: skull" \
-#		-d "Something went wrong!" ntfy.sh/projectlegacyntfy
-#fi
-#
+# Notify that it is done
+curl \
+-H "Tags: heavy_check_mark" \
+-d "Download script is done" ntfy.sh/projectlegacyntfy

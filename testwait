@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#echo "
+
+#n=$1
+i=10
+while [ $i -gt 0 ]; do
+  printf '\r%s ' "Waiting to reduce strain on server ("$i"s)"
+  i=`expr $i - 1`
+  sleep 1
+done

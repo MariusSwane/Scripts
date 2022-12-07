@@ -1,9 +1,13 @@
-#! /bin/sh
+#! /bin/bash
 
-[ -z "$1" ] && printf "Give me when (year) and where (continent)!\n" && exit
+# Read input from stdin (wrapper script or human input)
+#[ -z "$1" ] && printf "Give me when (year) and where (continent)!\n" && exit
 
-link=$"https://www.davidrumsey.com/luna/servlet/view/all/where/$2/when/$1?"
 
+# make link based on input
+link="https://www.davidrumsey.com/luna/servlet/view/all/where/$2/when/$1?"
+
+# find the ids of the results and store them in cache
 curl -s "$link" |
 	grep 'RUMSEY~8~1~' | 
 	awk -F '~' '{print $4 "~" $5}' | 
@@ -11,30 +15,78 @@ curl -s "$link" |
 	uniq -d |
 	sort -u > $XDG_CACHE_HOME/rumlist
 
-# For each map/id in the list returned by previous command (loop)
+# Check previously saved maps/id's for duplicates
+# If it is not a duplicat put in cleaned list
 while IFS= read -r id;
 do
-	# Creating vars and writing to bibfile 
+
+if cat $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Legacies/rumlist | grep -Fx "$id" ; then
+
+	echo "$id already exists in rumlist"
+else
+	echo "$id" >> "$XDG_CACHE_HOME/rumfixed"
+fi
+
+done < "$XDG_CACHE_HOME/rumlist"
+
+
+# For each map/id in the clean temp list 
+while IFS= read -r id;
+do
+	# Creating variables for bibliography 
 	curl -s "https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~$id" > $XDG_CACHE_HOME/rum
 	
-	author=$(sed -n '/>author</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "author" | sed 's/^\s\+//' | sed 's/\s*$//' | sed "s/&#039;/\'/g" | xargs -0) 
+	author=$(sed -n '/>author</{N; p}' $XDG_CACHE_HOME/rum |
+		sed 's/<[^>]\+>/ /g' |
+		grep -v "author" | 
+		sed 's/^\s\+//' | 
+		sed 's/\s*$//' | 
+		sed "s/&#039;/\'/g" | 
+		xargs -0) 
 	
-	date=$(sed -n '/>date</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "date" | sed 's/\s\+//g')
+	date=$(sed -n '/>date</{N; p}' $XDG_CACHE_HOME/rum |
+		sed 's/<[^>]\+>/ /g' |
+		grep -v "date" | 
+		sed 's/\s\+//g')
 	
-	pdate=$(sed -n '/>pub_date</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "date" | sed 's/\s\+//g')
+	pdate=$(sed -n '/>pub_date</{N; p}' $XDG_CACHE_HOME/rum |
+		sed 's/<[^>]\+>/ /g' |
+		grep -v "date" |
+		sed 's/\s\+//g')
 	
-	publisher=$(sed -n '/>publisher</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "publisher" | sed 's/^\s\+//' | sed 's/\s*$//' | sed "s/amp;/\&/g" | sed "s/&#039;/\'/g" | xargs -0)
+	publisher=$(sed -n '/>publisher</{N; p}' $XDG_CACHE_HOME/rum | 
+		sed 's/<[^>]\+>/ /g' |
+		grep -v "publisher" |
+		sed 's/^\s\+//' |
+		sed 's/\s*$//' |
+		sed "s/amp;/\&/g" |
+		sed "s/&#039;/\'/g" |
+		xargs -0)
 	
-	location=$(sed -n '/>publisher_location</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "location" | sed 's/^\s\+//' | sed 's/\s*$//' | sed "s/&#039;/\'/g")
+	location=$(sed -n '/>publisher_location</{N; p}' $XDG_CACHE_HOME/rum |
+		sed 's/<[^>]\+>/ /g' |
+		grep -v "location" | 
+		sed 's/^\s\+//' |
+		sed 's/\s*$//' |
+		sed "s/&#039;/\'/g")
 	
-	title=$(sed -n '/>short_title</{N; p}' $XDG_CACHE_HOME/rum | sed 's/<[^>]\+>/ /g' | grep -v "title" | sed 's/^\s\+//' | sed 's/\s*$//' | sed "s/&#039;/\'/g")
+	title=$(sed -n '/>short_title</{N; p}' $XDG_CACHE_HOME/rum |
+		sed 's/<[^>]\+>/ /g' |
+		grep -v "title" |
+		sed 's/^\s\+//' | 
+		sed 's/\s*$//' | 
+		sed "s/&#039;/\'/g")
 	
-	key=$(printf "$author" | sed -n '1p' | sed 's/\s\+//g' | awk -v var="$date" -F ',' '{print $1var}')
+	key=$(printf "$author" |
+		sed -n '1p' |
+		sed 's/\s\+//g' |
+		awk -v var="$date" -F ',' '{print $1var}')
 
-while grep -qo "{$key," $HOME/work/Legacies/map.bib ; do 
+while grep -qo "{$key," $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Legacies/map.bib ; do 
 	key=$(printf "$key""I\n")
 done
 	
+	# Printing to bibliography
 	 printf "@misc{$key, 
 	 date = $pdate,
 	 title = {$title},
@@ -43,20 +95,35 @@ done
 	 publisher = {$publisher},
 	 address = {$location},
 	 url = {https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~$id}
- 	}\n\n" | tee -a $HOME/work/Legacies/map.bib
+ 	}\n\n" | tee -a $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Legacies/map.bib
 	
+	# Searching for either sid or jp2 and downloading
 	if cat $XDG_CACHE_HOME/rum | grep -qo "[A-Z0-9]*/[A-Z0-9]*\.sid" ; then
-		#download sid
 		did=$(cat $XDG_CACHE_HOME/rum | grep -o "[A-Z0-9]*/[A-Z0-9]*\.sid" | 
 			sort -u | sed s'/\.sid//') 
-		curl -s "https://rumseysid.lunaimaging.com/mrsid/mrsid_images/Rumsey/SIDS/$did.jp2?image=/$did.sid" > "$HOME/work/Legacies/maps/$key.sid"
+		echo "Downloading $key"
+		# Download sid
+		curl -ks "https://rumseysid.lunaimaging.com/mrsid/mrsid_images/Rumsey/SIDS/$did.jp2?image=/$did.sid" > $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Legacies/maps/$key
 	else 
 		did=$(cat $XDG_CACHE_HOME/rum |
 			grep -o "[A-Z0-9]*/[A-Z0-9]*\.jp2" | 
 			sort -u | sed s'/\.jp2//')
-		#download jp2
-		curl -s "https://www.davidrumsey.com/static/jp2k/$did.jp2" > "$HOME/work/Legacies/maps/$key.jp2"
+		echo "Downloading $key"
+		# Download jp2
+		curl -ks "https://www.davidrumsey.com/static/jp2k/$did.jp2" > $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Legacies/maps/$key.jp2
 	fi
 	
-done < "$XDG_CACHE_HOME/rumlist"
+	i=10
+	while [ $i -gt 0 ]; do
+	  printf '\r%s ' "Waiting to reduce strain on server ("$i"s)"
+	  i=`expr $i - 1`
+	  sleep 1
+	done
 
+done < "$XDG_CACHE_HOME/rumfixed"
+
+# Append the clean temporary file at the end of the permanent list
+cat $XDG_CACHE_HOME/rumfixed >> $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Legacies/rumlist
+
+# Delete previous clean list
+rm $XDG_CACHE_HOME/rumfixed 

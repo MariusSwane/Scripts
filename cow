@@ -1,0 +1,12 @@
+#!/bin/bash
+
+chosen=$(curl -s http://www.jkarreth.net/countrycodes.html |
+	grep "<tr><td>" |
+	sed 's/<[^>]*>/ /g ; /^$/d' |
+	rofi -dmenu -i -l 30)
+
+field=$(echo $chosen | rofi -dmenu -i -p "Letters (1) or Numbers (2)?")
+
+op=$(echo $chosen | cut -d ' ' -f $field)
+
+printf "$op" | xclip -selection clipboard

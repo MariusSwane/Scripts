@@ -4,6 +4,6 @@ mount Synology
 
 mdp
 
-mpc mount syno nfs://192.168.10.117/volume1/share/Music
+mpc mount syno nfs://192.168.10.116/volume1/share/Music
 
 yams

@@ -4,22 +4,22 @@
 msgId="991049"
 
 if [ $# -eq 0 ]; then
-pulseaudio-ctl mute > /dev/null
+pamixer -t > /dev/null
 else
 pactl set-sink-volume @DEFAULT_SINK@ $1 > /dev/null
 fi
 
-volume=$(pulseaudio-ctl full-status | awk '{print $1}')
-mute=$(pulseaudio-ctl full-status | awk '{print $2}')
+volume=$(pamixer --get-volume-human)
+mute=$(pamixer --get-mute)
 
-if [[ $volume == 0 || "$mute" == "yes" ]]; then
+if [[ "$mute" == "true" ]]; then
     # Show the sound muted notification
-    dunstify -a "changeVolume" -i $HOME/Pictures/mute.png -r "$msgId" "Volume muted" 
+    dunstify -a "changeVolume" -i $HOME/scripts/img/mute.png -r "$msgId" "Volume muted" 
 else
 
 # Show the volume notification
-    dunstify -a "changeVolume" -i $HOME/Pictures/up.png -r "$msgId" \
-    -h int:value:"$volume" "Volume: ${volume}%"
+    dunstify -a "changeVolume" -i $HOME/scripts/img/up.png -r "$msgId" \
+    -h int:value:"$volume" "Volume: ${volume}"
 fi
 
 # Play the volume changed sound

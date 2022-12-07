@@ -2,10 +2,10 @@
 
 # Set library folder
 
-lib="/home/mariussw/work/Library/"
+lib="/home/mariussw/ARC_Project Dropbox/Marius Wishman/Apps/Overleaf/TJ-project/Literature/"
 
 # Look up doi/link at sci-hub
-sci=$(curl "https://sci-hub.st/$1" | grep -m1 pdf | awk -F "'" '{print $2}')
+sci=$(curl "https://sci-hub.se/$1" | grep -m1 pdf | awk -F "'" '{print $2}')
 
 # Create a sensable file name
 ck=$(printf $sci | awk -F '?' '{print $1}' | grep -o "[a-zA-Z0-9]*\.pdf")
@@ -14,7 +14,7 @@ ck=$(printf $sci | awk -F '?' '{print $1}' | grep -o "[a-zA-Z0-9]*\.pdf")
 if printf $sci | grep sci-hub ; then
 	curl "https:/$sci" > "$lib$ck"
 else
-	curl "https:/sci-hub.st$sci" > "$lib$ck"
+	curl "https:/sci-hub.se$sci" > "$lib$ck"
 fi
 
 # Is the filename ok?

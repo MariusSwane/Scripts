@@ -3,7 +3,7 @@
 chosen=$(mpc list album | shuf -n 1)
 
 mpc clear
-mpc searchadd album "$chosen"
+mpc findadd album "$chosen"
 mpc play
 
 bum
