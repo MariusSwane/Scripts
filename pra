@@ -6,4 +6,4 @@ mpc clear
 mpc findadd album "$chosen"
 mpc play
 
-bum
+$HOME/scripts/bum
