@@ -1,0 +1,5 @@
+#! /bin/bash
+
+yt=$(echo $1 | sed 's/www.youtube.com/invidious.nerdvpn.de/')
+
+qutebrowser $yt
