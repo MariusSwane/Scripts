@@ -1,5 +1,9 @@
-#! /bin/bash
+#! /bin/dash
 
-yt=$(echo $1 | sed 's/www.youtube.com/invidious.nerdvpn.de/')
+sleep .5
+
+xdotool key y y 
+
+yt=$(xclip -selection clipboard -o | sed 's/www.youtube.com/invidious.nerdvpn.de/')
 
 qutebrowser $yt
