@@ -1,19 +1,21 @@
 #!/bin/bash
 
-MUSIC_DIR=$HOME/Synology/Music
-COVER=$MUSIC_DIR/$(mpc current -f %albumartist%/%album%/)cover
+musicDir=$HOME/Synology/Music
+albumDir=$musicDir/$(mpc current -f %albumartist%/%album%/)
 
-#kitty +kitten icat "$COVER"
+cover=$(find "$albumDir" | grep -i cover\.jpg)
 
 ## Butt-ugly quick fix to prevent multiplying windows ##
 #killall nsxiv
+
+echo $cover
 
 if xwininfo -name nsxiv ; then
 	WID=$(xwininfo -name nsxiv | grep xwininfo | cut -d ' ' -f 4)
 
 	## Display album art ##
-	nsxiv -g 600x600 -bqe $WID "$COVER"*
+	nsxiv -g 600x600 -bqe $WID "$cover"
 else
-	nsxiv -g 600x600 -bq "$COVER"*
+	nsxiv -g 600x600 -bq "$cover"
 fi
 

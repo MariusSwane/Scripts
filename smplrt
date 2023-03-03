@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sr=$(cat /proc/asound/card1/pcm0p/sub0/hw_params | grep rate: | cut -d ' ' -f2)
+sr=$(cat /proc/asound/card2/pcm0p/sub0/hw_params | grep rate: | cut -d ' ' -f2)
 
 case $sr in
 	44100)

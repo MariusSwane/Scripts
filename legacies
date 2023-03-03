@@ -1,0 +1,9 @@
+#!/bin/dash
+
+rclone bisync gdrive/legacies_team_files legacies_team_files: --verbose
+
+rclone bisync mapping: gdrive/mapping --verbose
+
+rclone bisync gdrive/maps_storage maps_storage: --verbose
+
+rclone bisync gdrive/state_identification state_identification: --verbose
