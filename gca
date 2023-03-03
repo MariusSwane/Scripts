@@ -8,12 +8,15 @@ date=$(date)
 find * -size +100M | cat >> .gitignore
 find * -size +100M
 
+# Finding branch
+branch=$(git branch --show-current)
+
+# Pulling for changes to remote
+git pull origin $branch
+
 # Adding and commiting everything
 git add -A
 git commit -am "$date"
-
-# Finding branch
-branch=$(git branch --show-current)
 
 # Pushing to current branch
 git push origin $branch
