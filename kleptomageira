@@ -1,0 +1,13 @@
+#!/bin/bash
+
+for i in $(ls *.tex | grep -v kleptomageira);
+do
+	tail -n +18 $i | 
+		head -n -2 >> kleptomageira.tex
+	echo '
+	\clearpage
+	' >> kleptomageira.tex
+done
+
+echo '\end{document}' >> kleptomageira.tex
+
