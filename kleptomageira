@@ -1,13 +1,25 @@
 #!/bin/bash
 
+# This script compiles the various single recipe "articles" into one book, the
+# Kleptomageira.
+
+# Start with only the head
+head -n 36 kleptomageira.tex > $XDG_CACHE_HOME/placeholder
+
+# Decapitate and remove the feet of all the articles, and clear the page for the
+# next recipe before appending to the book.
+
 for i in $(ls *.tex | grep -v kleptomageira);
 do
 	tail -n +18 $i | 
-		head -n -2 >> kleptomageira.tex
+		head -n -2 >> $XDG_CACHE_HOME/placeholder
 	echo '
 	\clearpage
-	' >> kleptomageira.tex
+	' >> $XDG_CACHE_HOME/placeholder
 done
 
-echo '\end{document}' >> kleptomageira.tex
+# End the document
+echo '\end{document}' >> $XDG_CACHE_HOME/placeholder
+
+mv $XDG_CACHE_HOME/placeholder kleptomageira.tex
 
