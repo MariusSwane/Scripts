@@ -23,3 +23,5 @@ echo '\end{document}' >> $XDG_CACHE_HOME/placeholder
 
 mv $XDG_CACHE_HOME/placeholder kleptomageira.tex
 
+pdflatex -interaction -nonstopmode kleptomageira.tex
+

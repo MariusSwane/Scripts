@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+# Take color and figlet font from input or use random and default
+if [ $# -eq 0 ]; then
+font="ANSI Shadow"
+color=$(shuf -i 0-7 -n 1)
+echo "No input given. Using default font and random color (0-7)."
+sleep 1.5
+else
+echo "Please input a color number (0-7) and a figlet font"
+read color font
+fi
+
+clear
+
+echo $color $font
+
+tput setaf $color clear & date +%H:%M | figlet -tkcp -f "$font"
+
+while sleep 15; do
+    tput cup 0 0
+    date +%H:%M | figlet -tkcp -f "$font"
+done
