@@ -1,0 +1,5 @@
+#!/bin/bash
+
+lpr "$1" -P Bro -o print-quality=5 -o media=a4 -o sides=two-sided-long-edge
+
+notify-send "Sending $1 to printer"
