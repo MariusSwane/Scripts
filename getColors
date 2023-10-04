@@ -1,0 +1,3 @@
+#!/bin/bash
+
+convert $1 -colorspace RGB -format %c histogram:info:- | sort -nr | head
