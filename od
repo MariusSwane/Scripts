@@ -1,0 +1,14 @@
+#!/bin/bash
+
+while true; do
+	if pgrep onedrive &>/dev/null; then
+		status=" 🔵 "
+		echo $status
+  		sleep 20
+	else
+		status=" 🔴 "
+		echo $status
+  	      	sleep 20
+	fi	
+done
+

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+a_flag='ANSI Shadow'
+
+print_usage() {
+  printf "Usage: ..."
+}
+
+while getopts 'f' flag; do
+  case "${flag}" in
+    f) a_flag='true' ;;
+    #b) b_flag='true' ;;
+    #f) files="${OPTARG}" ;;
+    #v) verbose='true' ;;
+    *) print_usage
+       exit 1 ;;
+  esac
+done
+
+date +%T \
+	| awk -F ':' '{print $1 ":" $2 }' \
+	| figlet -f "$a_flag"
+
+d=$(date +%D)
+
+echo "	$d"

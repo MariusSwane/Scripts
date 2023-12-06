@@ -1,3 +1,9 @@
 #! /bin/bash
 
-xdotool type $(gpg -d .local/share/bms.gpg | grep -v '^#' | rofi -dmenu -i -l 30 | cut -d' ' -f1)
+gpg -d .local/share/bms.gpg | 
+	grep -v '^#' |
+	rofi -dmenu -i -l 30 |
+	cut -d' ' -f1 |
+	xclip -sel clip
+
+xdotool key "ctrl+v"

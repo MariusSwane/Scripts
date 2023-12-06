@@ -82,7 +82,7 @@ do
 		sed 's/\s\+//g' |
 		awk -v var="$date" -F ',' '{print $1var}')
 
-while grep -qo "{$key," $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Legacies/map.bib ; do 
+while grep -qo "{$key," $HOME/OneDrive/legacies_project/maps_storage/map.bib ; do 
 	key=$(printf "$key""I\n")
 done
 	
@@ -95,7 +95,7 @@ done
 	 publisher = {$publisher},
 	 address = {$location},
 	 url = {https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~$id}
- 	}\n\n" | tee -a $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Legacies/map.bib
+ 	}\n\n" | tee -a $HOME/OneDrive/legacies_project/maps_storage/map.bib
 	
 	# Searching for either sid or jp2 and downloading
 	if cat $XDG_CACHE_HOME/rum | grep -qo "[A-Z0-9]*/[A-Z0-9]*\.sid" ; then
@@ -103,14 +103,14 @@ done
 			sort -u | sed s'/\.sid//') 
 		echo "Downloading $key"
 		# Download sid
-		curl -ks "https://rumseysid.lunaimaging.com/mrsid/mrsid_images/Rumsey/SIDS/$did.jp2?image=/$did.sid" > $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Legacies/maps/$key
+		curl -ks "https://rumseysid.lunaimaging.com/mrsid/mrsid_images/Rumsey/SIDS/$did.jp2?image=/$did.sid" > $HOME/OneDrive/legacies_project/maps_storage/Asia/$key
 	else 
 		did=$(cat $XDG_CACHE_HOME/rum |
 			grep -o "[A-Z0-9]*/[A-Z0-9]*\.jp2" | 
 			sort -u | sed s'/\.jp2//')
 		echo "Downloading $key"
 		# Download jp2
-		curl -ks "https://www.davidrumsey.com/static/jp2k/$did.jp2" > $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Legacies/maps/$key.jp2
+		curl -ks "https://www.davidrumsey.com/static/jp2k/$did.jp2" > $HOME/OneDrive/legacies_project/maps_storage/Asia/$key.jp2
 	fi
 	
 	i=10
@@ -123,7 +123,7 @@ done
 done < "$XDG_CACHE_HOME/rumfixed"
 
 # Append the clean temporary file at the end of the permanent list
-cat $XDG_CACHE_HOME/rumfixed >> $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Legacies/rumlist
+cat $XDG_CACHE_HOME/rumfixed >> $HOME/OneDrive/legacies_project/maps_storage/rumlist
 
 # Delete previous clean list
 rm $XDG_CACHE_HOME/rumfixed 

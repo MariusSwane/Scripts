@@ -5,6 +5,8 @@ followed by a region/location:"
 
 read fyear tyear location
 
+echo $location
+
 # Formatting location	
 location=$(echo $location | sed -e 's/^./\U&/g; s/ ./\U&/g' | sed 's/ /\+/g')
 
