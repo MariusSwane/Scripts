@@ -6,7 +6,7 @@ printf "Search Google Scholar"
 
 #input=$(printf $input | sed 's/ /+/g')
 
-curl -A 'Mozilla/5.0' "https://scholar.google.com/scholar?q=charles+butcher" | 
+curl -A 'Mozilla/6.0' "https://scholar.google.com/scholar?q=charles+butcher" | 
 	sed 's/href/\n/g' | 
 	grep doi |
 	awk -F '"' '{print $2}' | 
