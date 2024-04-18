@@ -1,0 +1,9 @@
+#! /bin/bash
+
+gpg -d .local/share/bms.gpg | 
+	grep -v '^#' |
+	rofi -dmenu -i -l 30 |
+	cut -d' ' -f1 |
+	wl-copy
+
+#ydotool key "ctrl+v"
