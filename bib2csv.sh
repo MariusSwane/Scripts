@@ -15,4 +15,3 @@ paste <(echo "$key") <(echo "$url") <(echo "$title") <(echo "$author") <(echo "$
 uniq -f 1 map.csv | awk '{print $1 "\t" $3 "\t" $4 "\t" $5}' | sort > urlUniq.csv
 
 uniq -f 1 urlUniq.csv | awk '{print $1}' | sort > uniqMaps
-
