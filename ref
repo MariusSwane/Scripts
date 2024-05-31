@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 [ -z "$1" ] && echo "Give either a pdf file or a DOI as an argument." && exit
 
@@ -36,7 +36,7 @@ case "$response" in
 esac
 
 # rsync to dropbox
-rsync -a "$location" $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Apps/Overleaf/Communal\ violence\ and\ precolonial\ states/
+#rsync -a "$location" $HOME/ARC_Project\ Dropbox/Marius\ Wishman/Apps/Overleaf/Communal\ violence\ and\ precolonial\ states/
 
 # Download from scihub
 read -r -p "Download? [y/N] " response
