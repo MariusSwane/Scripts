@@ -1,5 +1,0 @@
-#!/bin/bash
-
-chosen=$(beet random -ap)
-
-mpv --gapless-audio --term-osd-bar -no-resume-playback "$chosen"

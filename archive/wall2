@@ -1,9 +1,0 @@
-#!/bin/sh
-
-wal -a 80 -i $HOME/Pictures/wal2/*
-xrandr --output DP1-2 --auto --left-of eDP1
-xbacklight -set 100
-feh --bg-scale $HOME/Pictures/wal2/*
-#xwallpaper --screen 0 --zoom $HOME/Pictures/wal2/*
-$HOME/.config/polybar/launch.sh
-picom -b
