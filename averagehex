@@ -4,4 +4,4 @@ grim -g "$(slurp)" - |
 magick - -resize 1x1 txt:- |
 awk -F ' ' '{print $3}' |
 grep "#" |
-tee >(wl-copy)
+tee >(wl-copy -n)
