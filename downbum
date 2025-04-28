@@ -36,6 +36,6 @@ do
 done
 
 
-echo $link
-#curl $link > "$cover"
+#echo $link
+curl $link > "$cover"
 
