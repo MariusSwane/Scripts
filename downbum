@@ -1,13 +1,41 @@
-#!/bin/bash
+#!/bin/zsh
 
-MUSIC_DIR=$HOME/Synology/Music
-cover=$MUSIC_DIR/$(mpc current -f %albumartist%/%album%/)cover.jpg
-current=$(mpc current -f "%albumartist%/%album%" |
+MUSIC_DIR=/mnt/syno/Music
+cover=$MUSIC_DIR/$(mpc current -f "[%albumartist%|%artist%]/%album%/cover.jpg")
+
+#current=$(mpc current -f "[%albumartist%|%artist%]/%album%" |
+#	sed 's/ /\+/g')
+#
+#link=$(curl -s 'https://www.last.fm/music/$current' |
+#	grep -o -m1 -e 'content=".*\.jpg"' | 
+#	cut -d '"' -f 2)
+#
+
+current=$(mpc current -f %album% |
 	sed 's/ /\+/g')
 
-link=$(curl -s "https://www.last.fm/music/$current" |
-	grep -o -m1 -e 'content=".*\.jpg"' | 
-	cut -d '"' -f 2)
+artist=$(mpc current -f "%albumartist%|%artist%")
 
-curl $link > "$cover"
+MBIDs=$(curl -s "https://musicbrainz.org/ws/2/release/?query=release:$current" |
+	sed 's/<name>/\n/g' |
+	grep -a1 "$artist" |
+	grep -o "release id=\"[0-Z]*-[0-Z]*-[0-Z]*-[0-Z]*-[0-Z]*" |
+	awk -F '"' '{print $2}')
+
+chosen=1
+
+MBID=$(echo $MBIDs | sed "${chosen}q;d")
+
+until [ $link > 0 ]
+do
+	chosen=$(($chosen + 1))
+	MBID=$(echo $MBIDs | sed "${chosen}q;d")
+	link=$(curl -Ls "https://coverartarchive.org/release/$MBID" |
+		sed 's/"/\n/g' | 
+		grep -m 1 "http")
+done
+
+
+echo $link
+#curl $link > "$cover"
 

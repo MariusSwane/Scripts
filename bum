@@ -1,16 +1,13 @@
 #!/bin/bash
 
-musicDir=$HOME/Synology/Music
-albumDir=$musicDir/$(mpc current -f %albumartist%/%album%/)
-
+musicDir=/mnt/syno/Music
+albumDir=$musicDir/$(mpc current -f "[%albumartist%|%artist%]/%album%/" | sed 's/^ //' | sed 's/ \//\//g')
 cover=$(find "$albumDir" | grep -i cover\.jpg)
 
 ## Butt-ugly quick fix to prevent multiplying windows ##
 #killall nsxiv
 
-echo $cover
-
-if xwininfo -name nsxiv ; then
+if xwininfo -name nsxiv > /dev/null ; then
 	WID=$(xwininfo -name nsxiv | grep xwininfo | cut -d ' ' -f 4)
 
 	## Display album art ##

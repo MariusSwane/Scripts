@@ -1,12 +1,12 @@
 #!/bin/bash
 
-MUSIC_DIR=$HOME/Synology/Music/
-path=$MUSIC_DIR$(mpc current -f %albumartist%/%album%/)
+musicDir=/mnt/syno/Music
+albumpath=$musicDir/$(mpc current -f "[%albumartist%|%artist%]/%album%/" | sed 's/^ //' | sed 's/ \//\//g')
 
-ext=$(ls "$path" | grep -x ^cover.*)
+coverext=$(ls "$albumpath" | grep "^cover.*")
 
-COVER=$path$ext
+COVER=$albumpath$coverext
 
-magick "$COVER" -resize 125x "/tmp/cover.$ext"
+magick "$COVER" -resize 125x "/tmp/cover.$coverext"
 
-notify-send "$(mpc --format '%artist% \n- \n%title%' current)" -i "/tmp/cover.$ext" -t 5000
+notify-send "$(mpc --format '%artist% \n- \n%title%' current)" -i "/tmp/cover.$coverext" -t 5000
