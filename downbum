@@ -22,7 +22,7 @@ MBIDs=$(curl -s "https://musicbrainz.org/ws/2/release/?query=release:$current" |
 	grep -o "release id=\"[0-Z]*-[0-Z]*-[0-Z]*-[0-Z]*-[0-Z]*" |
 	awk -F '"' '{print $2}')
 
-chosen=1
+chosen=0
 
 MBID=$(echo $MBIDs | sed "${chosen}q;d")
 
@@ -37,5 +37,7 @@ done
 
 
 #echo $link
-curl $link > "$cover"
+url=$(curl -s $link | awk -F ' ' '{print $2}')
+
+curl -Ls $url > "$cover"
 
